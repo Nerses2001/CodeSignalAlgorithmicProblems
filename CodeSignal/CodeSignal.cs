@@ -632,8 +632,8 @@ namespace CodeWrithing.CodeSignal
         // The pixels in the input image are represented as integers.The algorithm distorts the input image in the following way: Every pixel x in the output image has a value equal to the average value of the pixel values from the 3 × 3 square that has its center at x, including x itself.All the pixels on the border of x are then removed.
         // Return the blurred image as an integer, with the fractions rounded down.
 
-        public int[][] ApplyBoxBlur(int[][] image)
-        {
+         public int[][] ApplyBoxBlur(int[][] image)
+         { 
             int row = image.Length;
             int col = image[0].Length;
 
@@ -681,6 +681,47 @@ namespace CodeWrithing.CodeSignal
                 }
             }
             return totalSum / 9;
+        }
+
+        
+        //In the popular Minesweeper game you have a board with some mines and those cells that
+        //don't contain a mine have a number in it that indicates the total number of mines in the neighboring cells.
+        //Starting off with some arrangement of mines we want to create a Minesweeper game setup.
+        public int[][] Minesweeper(bool[][] matrix)
+        {
+            int rows = matrix.Length;
+            int cols = matrix[0].Length;
+
+            int[][] hintsMatrix = new int[rows][];
+            for (int i = 0; i < rows; i++)
+            {
+                hintsMatrix[i] = new int[cols];
+            }
+
+            int[] dr = { -1, -1, -1, 0, 0, 1, 1, 1 };
+            int[] dc = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (matrix[i][j])
+                    {
+                        for (int k = 0; k < 8; k++)
+                        {
+                            int newRow = i + dr[k];
+                            int newCol = j + dc[k];
+
+                            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols)
+                            {
+                                ++hintsMatrix[newRow][newCol];
+                            }
+                        }
+                    }
+                }
+            }
+
+            return hintsMatrix;
         }
     }
 }
