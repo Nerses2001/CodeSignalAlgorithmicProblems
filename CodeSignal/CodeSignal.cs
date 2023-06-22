@@ -461,6 +461,63 @@ namespace CodeWrithing.CodeSignal
             }
         }
 
+        //You are given an array of integers. On each move you are allowed to increase exactly one of its element by one.
+        //Find the minimal number of moves required to obtain a strictly increasing sequence from the input.
+        public int MinMovesForStrictlyIncreasing(int[] inputArray)
+        {
+            int count = 0;
+            for (int i = 1; i < inputArray.Length; ++i)
+            {
+
+                if (inputArray[i - 1] >= inputArray[i])
+                {
+                    int diff = inputArray[i - 1] - inputArray[i] + 1;
+                    count += diff;
+                    inputArray[i] = inputArray[i - 1] + 1;
+                }
+            }
+
+            return count;
+        }
+        //Given a string, find out if its characters can be rearranged to form a palindrome.
+        //CanFormPalindrome
+        public bool CanFormPalindrome(string inputString)
+        {
+
+            Dictionary<char, int> charFreq = new Dictionary<char, int>();
+
+            for (int i = 0; i < inputString.Length; ++i)
+            {
+
+                if (charFreq.ContainsKey(inputString[i]))
+                {
+                    ++charFreq[inputString[i]];
+                }
+                else
+                {
+                    charFreq.Add(inputString[i], 1);
+                }
+
+            }
+
+            int odd = 0;
+
+            foreach (int value in charFreq.Values)
+            {
+                if ((value & 1) == 1)
+                {
+                    ++odd;
+                }
+
+                if (odd > 1)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
 
     }
 
